@@ -60,7 +60,7 @@ class Encoder:
 if __name__ == "__main__":
     # write some test code here to make sure your encoder driver works
     print("Test started!")
-    encoder = Encoder(6, 7)
+    encoder = Encoder(8, 9)
     while True:
         utime.sleep_ms(50)
         print(f"Encoder value: {encoder.read()}")

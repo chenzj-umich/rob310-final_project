@@ -1,6 +1,7 @@
 from machine import Pin, ADC
 import utime
 
+
 class ReadIn:
     def __init__(self, pin_adc, alpha, size):
         self.adc_pin = Pin(pin_adc, mode=Pin.IN)
@@ -17,12 +18,10 @@ class ReadIn:
 
     def read(self):
         new_reading = self.adc.read_u16() * 3.3 / 65535 - self.offset
-        return new_reading
-        '''
         self.ema = self.alpha * new_reading + (1 - self.alpha) * self.ema
-        if new_reading < 0.1:
+        if new_reading < 0.15:
             new_reading = 0
-        if self.ema < 0.1:
+        if self.ema < 0.15:
             self.ema = 0
         self.readings[self.index] = new_reading
         self.readings_ema[self.index] = self.ema
@@ -32,14 +31,14 @@ class ReadIn:
         average_ema = sum(self.readings_ema) / self.buffer_size
         voltage = average
         voltage_ema = average_ema
-        return (voltage, voltage_ema)
-        '''
+        return new_reading
+        
     
     def calibrate(self):
         start = utime.ticks_ms()
         total = 0
         count = 0
-        while utime.ticks_diff(utime.ticks_ms(), start) / 1000 < 5:
+        while utime.ticks_diff(utime.ticks_ms(), start) / 1000 < 1:
             total += self.adc.read_u16() * 3.3 / 65535
             count += 1
         self.offset = total / count

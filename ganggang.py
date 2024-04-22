@@ -1,11 +1,13 @@
+
 from receiver import Receiver
 from encoder import Encoder
 from motor_class import Motor
+from readVoltage import ReadIn
 
 import utime
 
 class Ganggang:
-    def __init__(self, rec):
+    def __init__(self):
         self.rec = rec
     
     def update(self, setpoint):

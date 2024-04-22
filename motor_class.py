@@ -1,3 +1,4 @@
+
 #################################################################
 # motor.py
 # 
@@ -34,6 +35,7 @@ class Motor:
             self.pwm.duty_u16(int(-1 * duty * 65535))
         else:
             self.pwm.duty_u16(0)
+            print(f"Duty: {duty}")
             print("ERROR: duty out of range")
 
 
@@ -49,8 +51,8 @@ if __name__ == "__main__":
     # Write some code to test your motor here
     
     try:
-        enc = Encoder(6,7)
-        motor = Motor(2,14)
+        enc = Encoder(8,9)
+        motor = Motor(3,15)
         
         motor.set(0.25)
         start_time = utime.ticks_ms()
